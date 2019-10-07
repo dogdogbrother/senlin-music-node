@@ -1,0 +1,27 @@
+{
+  "name": "senlin-music-node",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000s\u0000e\u0000n\u0000l\u0000i\u0000n\u0000-\u0000m\u0000u\u0000s\u0000i\u0000c\u0000-\u0000n\u0000o\u0000d\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dogdogbrother/senlin-music-node.git"
+  },
+  "author": "senlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dogdogbrother/senlin-music-node/issues"
+  },
+  "homepage": "https://github.com/dogdogbrother/senlin-music-node#readme",
+  "dependencies": {
+    "koa": "^2.8.2",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
+}
