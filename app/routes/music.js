@@ -5,8 +5,8 @@
 const Router = require('koa-router')
 const router = new Router()
 
-router.post('/login',(ctx) => {
-    ctx.body = '测试'
-})
+// router.post('/login',(ctx) => {
+//     ctx.body = '测试'
+// })
 
 module.exports = router

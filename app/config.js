@@ -1,3 +1,4 @@
 module.exports = {
-    connectionStr: 'mongodb+srv://tsdhr1:wojiaowh110@free-to-music-yyccw.mongodb.net/admin?retryWrites=true&w=majority'
+    secret: 'music-jwt-secret',
+    connectionStr: 'mongodb+srv://tsdhr1:wojiaowh110@free-to-music-yyccw.mongodb.net/test?retryWrites=true&w=majority'
 }
