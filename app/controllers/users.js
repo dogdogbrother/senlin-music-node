@@ -12,11 +12,16 @@ class UsersCtl {
         if (!user) { ctx.throw(401, '用户名或密码不正确') }
         const { _id, name } = user
         const token = jsonwebtoken.sign({ _id, name }, secret, { expiresIn: '1d' })
+        console.log(token);  
+        console.log('--------------------------');
+        
+
         ctx.cookies.set('token', token, {
             overwrite: true,
             maxAge:1000000
         })
-        ctx.body = { message: '登陆成功' }
+
+        ctx.body = { user }
     }
     async register(ctx) {
         ctx.verifyParams({
@@ -31,6 +36,15 @@ class UsersCtl {
         delete ctx.request.body.affirmPassword
         const user = await new User(ctx.request.body).save();
         ctx.body = user;
+    }
+    async userInfo(ctx) {
+        const { _id } = jsonwebtoken.verify(ctx.state.token, secret)
+        console.log(_id);
+    
+        const test = await User.findOne({ _id });
+        console.log(typeof test);
+        
+        ctx.body = 'test'
     }
 }
 
