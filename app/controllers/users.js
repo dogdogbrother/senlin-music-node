@@ -14,10 +14,9 @@ class UsersCtl {
         const token = jsonwebtoken.sign({ _id }, secret, { expiresIn: '1d' })
         ctx.cookies.set('token', token, {
             overwrite: true,
-            maxAge:1000000,
+            maxAge:1000000000,
             httpOnly: false
         })
-
         ctx.body = user 
     }
     async register(ctx) {
@@ -35,10 +34,21 @@ class UsersCtl {
         ctx.body = user;
     }
     async userInfo(ctx) {
-        let info = await User.findById( { _id:ctx.state.user._id })
-        console.log(info);
-        
         ctx.body = await User.findById( { _id:ctx.state.user._id })
+    }
+    async likeSong(ctx) {
+        //首先呢，我们要通过token的id找到这个文档，然后push进数据，再更新
+        let userInfo = await User.findById( { _id:ctx.state.user._id })
+        userInfo.fonds.push(ctx.request.body)
+        await User.findByIdAndUpdate(ctx.state.user._id, userInfo,{ new: true })    
+        ctx.body = ctx.request.body
+    }
+    async dislikeSong(ctx) {
+        //首先呢，我们要通过token的id找到这个文档，然后通过ctx.request.body.id过滤歌曲，删除后更新，然后把剩下的歌单全部返回去
+        let userInfo = await User.findById( { _id:ctx.state.user._id })
+        userInfo.fonds = userInfo.fonds.filter(item=>item.id !== ctx.request.body.id)
+        await User.findByIdAndUpdate(ctx.state.user._id, userInfo,{ new: true })
+        ctx.body = userInfo.fonds
     }
 }
 

@@ -9,9 +9,7 @@ const userSchema = new Schema({
   avatar_url: { type: String, default: '' },
   accountName: { type: String, default: '' },
   gender: { type: String, enum: ['male', 'female'], default: 'male' },
-  fonds:[{
-    song_name: { type: String, required: true }
-  }]
+  fonds:[]
 });
 
 module.exports = model('User', userSchema);
