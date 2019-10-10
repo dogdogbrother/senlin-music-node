@@ -50,6 +50,12 @@ class UsersCtl {
         await User.findByIdAndUpdate(ctx.state.user._id, userInfo,{ new: true })
         ctx.body = userInfo.fonds
     }
+    async updateSong(ctx) {
+        
+        console.log('------------------------------------------------------------------------------')
+        ctx.body = '上传成功，服务器收到了'
+        
+    }
 }
 
 module.exports = new UsersCtl()
