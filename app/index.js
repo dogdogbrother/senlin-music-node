@@ -18,6 +18,4 @@ app.use(bodyparser());
 app.use(parameter(app));
 routing(app)
 
-
-
-app.listen(3030, () => {console.log('3030端口已经开启')})
+app.listen(3004, () => {console.log('3004端口已经开启')})
