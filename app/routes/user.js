@@ -18,5 +18,4 @@ router.post('/user/likesong', auth, likeSong)
 router.post('/user/dislikesong', auth, dislikeSong)
 router.post('/user/updatesong', updateSong)
 
-
 module.exports = router
