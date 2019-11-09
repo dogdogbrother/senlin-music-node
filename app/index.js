@@ -15,7 +15,7 @@ mongoose.connect(connectionStr, { useUnifiedTopology: true,  useNewUrlParser: tr
 
 // mongoose.connection.on('error',console.error)
 
-app.use(statics())
+app.use(statics('/'))
 app.use(bodyparser());
 app.use(parameter(app));
 routing(app)
