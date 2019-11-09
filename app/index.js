@@ -9,13 +9,17 @@ const app = new Koa()
 const routing = require('./routes')
 const { connectionStr } = require('./config')
 
+const staticPath = '../../../../data/music'
+
 mongoose.connect(connectionStr, { useUnifiedTopology: true,  useNewUrlParser: true }, () => {
     console.log('链接成功');
 })
 
 // mongoose.connection.on('error',console.error)
 
-app.use(statics('/'))
+app.use(statics(
+    path.join(__dirname, staticPath)
+  ))
 app.use(bodyparser());
 app.use(parameter(app));
 routing(app)
