@@ -7,7 +7,7 @@ const Router = require('koa-router')
 const { secret } = require('../config')
 const multiparty = require('koa2-multiparty');
 
-const { updatesong, updatemusic } = require('../controllers/music');
+const { updatesong, updatecover, updatemusic } = require('../controllers/music');
 
 const router = new Router()
 
@@ -20,6 +20,8 @@ router.get('/music/songlist',(ctx) => {
 })
 
 router.post('/music/updatesong', auth, multiparty(), updatesong)
+
+router.post('/music/updatecover', auth, multiparty(), updatecover)
 
 router.post('/music/updatemusic', auth, multiparty(), updatemusic)
 
