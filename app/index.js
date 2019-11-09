@@ -2,6 +2,7 @@ const Koa = require('koa')
 const mongoose = require('mongoose')
 const parameter = require('koa-parameter');
 const bodyparser = require('koa-bodyparser');
+const statics = require('koa-static')
 
 
 const app = new Koa()
@@ -14,6 +15,7 @@ mongoose.connect(connectionStr, { useUnifiedTopology: true,  useNewUrlParser: tr
 
 // mongoose.connection.on('error',console.error)
 
+app.use(statics())
 app.use(bodyparser());
 app.use(parameter(app));
 routing(app)

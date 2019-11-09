@@ -30,11 +30,14 @@ class MusicCtl {
     }
     const songName = ctx.request.body.songPath.split('/tmp/')[1];
     const musicInfo = {
-      songUrl: `/data/music/song/${songName}`
+      songUrl: `/data/music/song/${songName}`,
+      coverUrl: '',
+      songName: ctx.request.body.songName,
+      author: ctx.request.body.author
     }
     if (ctx.request.body.coverPath) {
-      shellCode = await shell.exec(`mv ${ctx.request.body.coverPath} /data/music/img/`);
-      if (!shellCode) {
+      const shellCode2 = await shell.exec(`mv ${ctx.request.body.coverPath} /data/music/img/`);
+      if (!shellCode2) {
         ctx.body = {
           code: 500,
           msg: '保存图片文件失败,从重新尝试上传'
