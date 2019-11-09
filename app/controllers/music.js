@@ -29,7 +29,6 @@ class MusicCtl {
       return;
     }
     const songName = ctx.request.body.songPath.split('/tmp/')[1];
-    
     const musicInfo = {
       songUrl: `/data/music/song/${songName}`
     }
