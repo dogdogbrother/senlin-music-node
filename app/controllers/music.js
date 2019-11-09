@@ -13,9 +13,13 @@ class MusicCtl {
   }
 
   async updatesong(ctx) { // 只是歌曲上传,没有数据库操作
+    console.log(ctx.req.files.file);
     ctx.body = {
       code: 100,
-      data: ctx.req.files.file.path,
+      data: {
+        path: ctx.req.files.file.path,
+        name: ctx.req.files.file.name
+      },
       msg: '歌曲上传成功,等待其他信息'
     }
   }
