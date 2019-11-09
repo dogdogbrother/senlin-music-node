@@ -2,6 +2,7 @@ const Koa = require('koa')
 const mongoose = require('mongoose')
 const parameter = require('koa-parameter');
 const bodyparser = require('koa-bodyparser');
+const path = require('path')
 const statics = require('koa-static')
 
 
