@@ -28,6 +28,11 @@ class MusicCtl {
       }
       return;
     }
+    const songName = ctx.request.body.songPath.split('/tmp/')[1];
+    
+    const musicInfo = {
+      songUrl: `/data/music/song/${songName}`
+    }
     if (ctx.request.body.coverPath) {
       shellCode = await shell.exec(`mv ${ctx.request.body.coverPath} /data/music/img/`);
       if (!shellCode) {
@@ -37,12 +42,8 @@ class MusicCtl {
         }
         return;
       }
-    }
-    const songName = ctx.request.body.songPath.split('/tmp/')[1];
-    const coverName = ctx.request.body.coverPath.split('/tmp/')[1];
-    const musicInfo = {
-      songUrl: `/data/music/song/${songName}`,
-      coverUrl: `/data/music/img/${coverName}`,
+      const coverName = ctx.request.body.coverPath.split('/tmp/')[1];
+      musicInfo.coverUrl = `/data/music/img/${coverName}`;
     }
     ctx.body = musicInfo;
   }
