@@ -1,9 +1,18 @@
-const Music = require('../models/music');
+const Music = require('../models/musics');
 const shell = require('shelljs');
 
 class MusicCtl {
 
-  async updatesong(ctx) {
+  async searchsong(ctx) {
+    const reg = new RegExp(ctx.query.keywords, 'i') 
+    const nameRes = await Music.find({songName: reg})
+    const authorRes = await Music.find({author: reg})
+    console.log(nameRes)
+    console.log(authorRes)
+    ctx.body= [...nameRes,...authorRes]
+  }
+
+  async updatesong(ctx) { // 只是歌曲上传,没有数据库操作
     ctx.body = {
       code: 100,
       data: ctx.req.files.file.path,
@@ -11,7 +20,7 @@ class MusicCtl {
     }
   }
 
-  async updatecover(ctx) {
+  async updatecover(ctx) {  // 只是封面上传,没有数据库操作
     ctx.body = {
       code: 100,
       data: ctx.req.files.avatar.path,
@@ -19,7 +28,7 @@ class MusicCtl {
     }
   }
 
-  async updatemusic(ctx) {
+  async updatemusic(ctx) {  // 真正的操作歌曲和封面
     const shellCode = await shell.exec(`mv ${ctx.request.body.songPath} /data/music/song/`);
     if (!shellCode) {
       ctx.body = {
@@ -33,7 +42,8 @@ class MusicCtl {
       songUrl: `http://49.233.185.168:3004/song/${songName}`,
       coverUrl: '',
       songName: ctx.request.body.songName,
-      author: ctx.request.body.author
+      author: ctx.request.body.author,
+      updateUserId: ctx.state.user._id
     }
     if (ctx.request.body.coverPath) {
       const shellCode2 = await shell.exec(`mv ${ctx.request.body.coverPath} /data/music/img/`);
@@ -47,7 +57,12 @@ class MusicCtl {
       const coverName = ctx.request.body.coverPath.split('/tmp/')[1];
       musicInfo.coverUrl = `http://49.233.185.168:3004/img/${coverName}`;
     }
-    ctx.body = musicInfo;
+    await new Music(musicInfo).save();
+    ctx.body = {
+      code: 100,
+      msg: '上传成功',
+      ...ctx.request.body
+    };
   }
 }
 
