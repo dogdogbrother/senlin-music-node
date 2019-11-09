@@ -44,7 +44,7 @@ class MusicCtl {
       songUrl: `/data/music/song/${songName}`,
       coverUrl: `/data/music/img/${coverName}`,
     }
-    ctx.request.body = musicInfo;
+    ctx.body = musicInfo;
   }
 }
 
