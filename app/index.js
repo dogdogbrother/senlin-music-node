@@ -16,11 +16,7 @@ mongoose.connect(connectionStr, { useUnifiedTopology: true,  useNewUrlParser: tr
     console.log('链接成功');
 })
 
-// mongoose.connection.on('error',console.error)
-
-app.use(statics(
-    path.join(__dirname, staticPath)
-  ))
+app.use(statics(path.join(__dirname, staticPath)))
 app.use(bodyparser());
 app.use(parameter(app));
 routing(app)

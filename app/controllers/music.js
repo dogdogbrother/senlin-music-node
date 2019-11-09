@@ -30,7 +30,7 @@ class MusicCtl {
     }
     const songName = ctx.request.body.songPath.split('/tmp/')[1];
     const musicInfo = {
-      songUrl: `/data/music/song/${songName}`,
+      songUrl: `http://49.233.185.168:3004/song/${songName}`,
       coverUrl: '',
       songName: ctx.request.body.songName,
       author: ctx.request.body.author
@@ -45,7 +45,7 @@ class MusicCtl {
         return;
       }
       const coverName = ctx.request.body.coverPath.split('/tmp/')[1];
-      musicInfo.coverUrl = `/data/music/img/${coverName}`;
+      musicInfo.coverUrl = `http://49.233.185.168:3004/img/${coverName}`;
     }
     ctx.body = musicInfo;
   }

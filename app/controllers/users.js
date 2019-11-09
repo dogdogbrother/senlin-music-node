@@ -48,7 +48,9 @@ class UsersCtl {
         ctx.body = user;
     }
     async userInfo(ctx) {
-        ctx.body = await User.findById( { _id:ctx.state.user._id })
+        const info = await User.findById( { _id:ctx.state.user._id })
+        if (!info) { ctx.throw(409, '获取个人信息失败请重试') }
+        ctx.body = info;
     }
     async likeSong(ctx) {
         //首先呢，我们要通过token的id找到这个文档，然后push进数据，再更新
@@ -69,12 +71,6 @@ class UsersCtl {
         await User.findByIdAndUpdate(ctx.state.user._id, userInfo,{ new: true })
         
         ctx.body = userInfo.fonds
-    }
-    async updateSong(ctx) {
-        
-        console.log('------------------------------------------------------------------------------')
-        ctx.body = '上传成功，服务器收到了'
-        
     }
 }
 
