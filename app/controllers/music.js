@@ -4,11 +4,12 @@ const shell = require('shelljs');
 class MusicCtl {
   async updatesong(ctx) {
     console.log(ctx.req.files.file);
-    
+    shell.exec(`mv ${ctx.req.files.file.path} /data/music/song`);
     ctx.body = {
       code: 100,
       data: ctx.req.files.file.path
     }
+    
   }
 
   async updatemusic(ctx) {
