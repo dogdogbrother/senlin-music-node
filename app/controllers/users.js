@@ -26,7 +26,6 @@ class UsersCtl {
         ctx.body = user 
     }
     async register(ctx) {
-
         ctx.verifyParams({
             name: { type: 'string', required: true },
             password: { type: 'string', required: true },
@@ -42,8 +41,11 @@ class UsersCtl {
         if (repeatedUser) { ctx.throw(409, '用户已经存在,请更换用户名') }
 
         delete ctx.request.body.affirmPassword
-
-        const user = await new User(ctx.request.body).save();
+        
+        const user = await new User({
+            ...ctx.request.body,
+            avatar_url:`http://49.233.185.168:3004/avatar/${Math.floor(Math.random()*8+1)}.jpg`
+        }).save()
 
         ctx.body = user;
     }

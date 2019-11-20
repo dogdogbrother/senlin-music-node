@@ -7,13 +7,15 @@ class MusicCtl {
     const reg = new RegExp(ctx.query.keywords, 'i') 
     const nameRes = await Music.find({songName: reg})
     const authorRes = await Music.find({author: reg})
-    console.log(nameRes)
-    console.log(authorRes)
-    ctx.body= [...nameRes,...authorRes]
+    authorRes.forEach(item => {
+      if(!nameRes.find(item2 => item2.songUrl === item.songUrl)){
+        nameRes.push(item)
+      }
+    })
+    ctx.body= nameRes
   }
 
   async updatesong(ctx) { // 只是歌曲上传,没有数据库操作
-    console.log(ctx.req.files.file);
     ctx.body = {
       code: 100,
       data: {
@@ -33,6 +35,15 @@ class MusicCtl {
   }
 
   async updatemusic(ctx) {  // 真正的操作歌曲和封面
+    
+    if(await Music.find({songName: ctx.request.body.songName}) && !ctx.request.body.verify){
+      // 这里我要处理一下,如果传进来的歌曲name和校验参数为false的话,就要返回一个 201 的 http
+      ctx.body = {
+        code: 201,
+        msg: `已经存在歌曲名为${ctx.request.body.songName}的资源,是否确认再次上传?`,
+      }
+      return
+    }
     const shellCode = await shell.exec(`mv ${ctx.request.body.songPath} /data/music/song/`);
     if (!shellCode) {
       ctx.body = {
