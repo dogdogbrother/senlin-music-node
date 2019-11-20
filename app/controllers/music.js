@@ -35,12 +35,13 @@ class MusicCtl {
   }
 
   async updatemusic(ctx) {  // 真正的操作歌曲和封面
-    
-    if(await Music.find({songName: ctx.request.body.songName}) && !ctx.request.body.verify){
+    let queryResult = await Music.find({songName: ctx.request.body.songName})
+    console.log(queryResult)
+    if(queryResult.length && !ctx.request.body.verify){
       // 这里我要处理一下,如果传进来的歌曲name和校验参数为false的话,就要返回一个 201 的 http
       ctx.body = {
         code: 201,
-        msg: `已经存在歌曲名为${ctx.request.body.songName}的资源,是否确认再次上传?`,
+        msg: `已经存在歌曲名为 ${ ctx.request.body.songName } 的资源,是否确认再次上传?`,
       }
       return
     }

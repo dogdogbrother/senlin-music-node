@@ -7,7 +7,7 @@ const musicSchema = new Schema({
   songUrl: { type: String, required: true },  //歌曲url
   coverUrl: { type: String, required: false, select: true }, //封面的url
   updateUserId: { type: String, required: true, select: true }, //上传者的ID
-  songName: { type: String, required: true, select: true },   //歌曲名字
+  songName: { type: String, required: true },   //歌曲名字
   author: { type: String, required: true, select: true },//歌曲作者
   describe: { type: String, required: false, select: true }, // 描述
 });
